@@ -10,3 +10,4 @@ obj/
 **/obj
 .env
 appsettings.*.Local.json
+.idea/
