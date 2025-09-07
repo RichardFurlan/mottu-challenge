@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mottu.Api", "Mottu.Api\Mottu.Api.csproj", "{E789759E-B510-462A-8F8A-E76356186A9B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{60278F57-64AE-4925-9B04-EB25395C4EBB}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+		.gitignore = .gitignore
+		Dockerfile = Dockerfile
+		.dockerignore = .dockerignore
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mottu.Application", "Mottu.Application\Mottu.Application.csproj", "{03B350D2-BE53-4D39-AC55-F591F6C0C8DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mottu.Domain", "Mottu.Domain\Mottu.Domain.csproj", "{966FD0A0-D979-4FD5-B69F-9B54516003AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mottu.Infrastructure", "Mottu.Infrastructure\Mottu.Infrastructure.csproj", "{73B37B1D-4457-461A-ABB3-6A3874245241}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mottu.Tests", "Mottu.Tests\Mottu.Tests.csproj", "{4D87C182-51E6-4BF8-B61E-5C0E899EFE5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E789759E-B510-462A-8F8A-E76356186A9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E789759E-B510-462A-8F8A-E76356186A9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E789759E-B510-462A-8F8A-E76356186A9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E789759E-B510-462A-8F8A-E76356186A9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B350D2-BE53-4D39-AC55-F591F6C0C8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B350D2-BE53-4D39-AC55-F591F6C0C8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B350D2-BE53-4D39-AC55-F591F6C0C8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B350D2-BE53-4D39-AC55-F591F6C0C8DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{966FD0A0-D979-4FD5-B69F-9B54516003AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{966FD0A0-D979-4FD5-B69F-9B54516003AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{966FD0A0-D979-4FD5-B69F-9B54516003AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{966FD0A0-D979-4FD5-B69F-9B54516003AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73B37B1D-4457-461A-ABB3-6A3874245241}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73B37B1D-4457-461A-ABB3-6A3874245241}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73B37B1D-4457-461A-ABB3-6A3874245241}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73B37B1D-4457-461A-ABB3-6A3874245241}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D87C182-51E6-4BF8-B61E-5C0E899EFE5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D87C182-51E6-4BF8-B61E-5C0E899EFE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D87C182-51E6-4BF8-B61E-5C0E899EFE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D87C182-51E6-4BF8-B61E-5C0E899EFE5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
