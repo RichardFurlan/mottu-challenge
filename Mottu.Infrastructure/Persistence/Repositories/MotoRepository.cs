@@ -19,9 +19,31 @@ public class MotoRepository :  IMotoRepository
         return await _context.Motos.AnyAsync(m => m.Placa == placa);
     }
 
-    public Task AddAsync(Moto moto)
+    public async Task<List<Moto>> GetMotosAsync(string? placa)
     {
-        _context.Motos.Add(moto);
-        return _context.SaveChangesAsync();
+        var query = _context.Motos
+            .AsNoTracking();
+            
+        if (!string.IsNullOrEmpty(placa))
+            query = query.Where(m => m.Placa == placa);
+                
+        
+        return await query.ToListAsync();
+    }
+
+    public Task<Moto?> GetMotoByIdAsync(Guid id)
+    {
+        return _context.Motos.SingleOrDefaultAsync(m => m.Id == id);
+    }
+
+    public async Task AddAsync(Moto moto)
+    {
+        await _context.Motos.AddAsync(moto);
+        await SaveAsync();
+    }
+
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

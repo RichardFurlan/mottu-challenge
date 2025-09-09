@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mottu.Application.Contracts.Messaging;
+using Mottu.Domain.Repositories;
 using Mottu.Infrastructure.Data;
+using Mottu.Infrastructure.Persistence.Repositories;
 using Mottu.Infrastructure.Services.MessageBus.Consumer;
 using Mottu.Infrastructure.Services.MessageBus.Publisher;
 
@@ -14,7 +16,8 @@ public static class InfrastructureModule
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services
-            .AddRabbitMQ(configuration)
+            .AddRepository()
+            .AddRabbitMq(configuration)
             .AddData(configuration);
 
         
@@ -30,7 +33,15 @@ public static class InfrastructureModule
         return services;
     }
     
-    private static IServiceCollection AddRabbitMQ(this IServiceCollection services, IConfiguration configuration)
+    private static IServiceCollection AddRepository(this IServiceCollection services)
+    {
+        services.AddScoped<IMotoRepository, MotoRepository>();
+        services.AddScoped<IRentalRepository, RentalRepository>();        
+        
+        return services;
+    }
+    
+    private static IServiceCollection AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
     {
         var rabbitMqSection = configuration.GetSection("RabbitMQ"); 
         var rabbitMqOptions = new RabbitMQOptions(); 
@@ -55,7 +66,6 @@ public static class InfrastructureModule
             });
         });
         
-        services.AddMassTransit();
         services.AddScoped<IMotoPublisher, MotoPublisher>();
         
         return services;

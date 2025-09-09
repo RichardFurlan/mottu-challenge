@@ -8,7 +8,15 @@ public class Moto : EntityBase
         Modelo = modelo;
         Placa = placa;
     }
-    public int Ano { get; set; }
-    public string Modelo { get; set; }
-    public string Placa { get; set; }
+    public int Ano { get; private set; }
+    public string Modelo { get; private set; }
+    public string Placa { get; private set; }
+    
+    public void UpdatePlaca(string placa)
+    {
+        Placa = placa;
+        UpdatedAt = DateTime.Now;
+    }
+    
+
 }
