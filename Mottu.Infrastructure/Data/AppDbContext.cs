@@ -8,6 +8,7 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options){}
     
     public DbSet<Moto> Motos { get; set; } = null!;
+    public DbSet<Moto2024> Motos2024 { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
