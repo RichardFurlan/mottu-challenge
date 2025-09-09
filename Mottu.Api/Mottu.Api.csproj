@@ -22,4 +22,8 @@
       <ProjectReference Include="..\Mottu.Infrastructure\Mottu.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Controllers\" />
+    </ItemGroup>
+
 </Project>
