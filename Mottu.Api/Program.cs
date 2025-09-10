@@ -1,17 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Mottu.Application;
+using Mottu.Infrastructure;
 using Mottu.Infrastructure.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-// Configuração: connection string (iremos setar no appsettings)
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-                       ?? "Host=localhost;Port=5432;Database=mottu;Username=postgres;Password=postgres";
-
-// Add DbContext
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(connectionString));
+builder.Services
+    .AddApplication()
+    .AddInfrastructure(builder.Configuration);
+    
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

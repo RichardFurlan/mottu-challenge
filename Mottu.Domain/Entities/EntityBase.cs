@@ -8,4 +8,15 @@ public abstract class EntityBase
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
     
+    public void Delete()
+    {
+        IsDeleted = true;
+        UpdatedAt = DateTime.Now;
+    }
+    
+    public void Inativar()
+    {
+        IsDeleted = true;
+        UpdatedAt = DateTime.Now;
+    }
 }
