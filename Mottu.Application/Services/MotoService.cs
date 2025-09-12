@@ -20,9 +20,9 @@ public class MotoService : IMotoService
         _rentalRepository = rentalRepository;
     }
 
-    #region CriarMotoAsync
+    #region CreateAsync
 
-    public async Task<ResultViewModel<Guid>> CriarMotoAsync(CreateMotoDto dto)
+    public async Task<ResultViewModel<Guid>> CreateAsync(CreateMotoDto dto)
     {
         if (await _motoRepository.ExistsByPlacaAsync(dto.Placa))
             return ResultViewModel<Guid>.Error("Placa já cadastrada");
@@ -39,9 +39,9 @@ public class MotoService : IMotoService
 
     #endregion
 
-    #region ListarMotoAsync
+    #region ListAsync
 
-    public async Task<ResultViewModel<List<MotoDto>>> ListarMotoAsync(string? placa)
+    public async Task<ResultViewModel<List<MotoDto>>> ListAsync(string? placa)
     {
         var motos = await _motoRepository.GetMotosAsync(placa);
 
@@ -54,9 +54,9 @@ public class MotoService : IMotoService
 
     #endregion
 
-    #region BuscarMotoAsync
+    #region GetByIdAsync
 
-    public async Task<ResultViewModel<MotoDto>> BuscarMotoAsync(Guid id)
+    public async Task<ResultViewModel<MotoDto>> GetByIdAsync(Guid id)
     {
         var moto = await _motoRepository.GetMotoByIdAsync(id);
 
@@ -69,9 +69,9 @@ public class MotoService : IMotoService
 
     #endregion
 
-    #region AtualizarPlacaAsync
+    #region UpdatePlacaAsync
 
-    public async Task<ResultViewModel<string>> AtualizarPlacaAsync(Guid id, UpdatePlacaDto dto)
+    public async Task<ResultViewModel<string>> UpdatePlacaAsync(Guid id, UpdatePlacaDto dto)
     {
         if (await _motoRepository.ExistsByPlacaAsync(dto.Placa))
             return ResultViewModel<string>.Error("Já existe uma moto cadastrada com essa placa");
@@ -88,11 +88,11 @@ public class MotoService : IMotoService
 
     #endregion
 
-    #region DeletarMotoAsync
+    #region DeleteAsync
 
-    public async Task<ResultViewModel> DeletarMotoAsync(Guid id)
+    public async Task<ResultViewModel> DeleteAsync(Guid id)
     {
-        if (await _rentalRepository.ExitsByMotoIdAsync(id))
+        if (await _rentalRepository.ExistsActiveRentalByMotoIdAsync(id))
             return ResultViewModel.Error("Não é possivel remover, pois a moto possui locações");
         
         var moto = await _motoRepository.GetMotoByIdAsync(id);
@@ -108,10 +108,11 @@ public class MotoService : IMotoService
     }
 
     #endregion
-    
-    public async Task<ResultViewModel> InativarMotoAsync(Guid id)
+
+    #region InactivateAsync
+    public async Task<ResultViewModel> InactivateAsync(Guid id)
     {
-        if (await _rentalRepository.ExitsByMotoIdAsync(id))
+        if (await _rentalRepository.ExistsActiveRentalByMotoIdAsync(id))
             return ResultViewModel.Error("Não é possivel inativar, pois a moto possui locações");
         
         var moto = await _motoRepository.GetMotoByIdAsync(id);
@@ -123,4 +124,5 @@ public class MotoService : IMotoService
         
         return ResultViewModel.Success();
     }
+    #endregion
 }
