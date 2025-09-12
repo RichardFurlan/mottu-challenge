@@ -1,6 +1,11 @@
-﻿namespace Mottu.Domain.Repositories;
+﻿using Mottu.Domain.Entities;
+
+namespace Mottu.Domain.Repositories;
 
 public interface IRentalRepository
 {
-    Task<bool> ExitsByMotoIdAsync(Guid motoId);
+    Task AddAsync(Rental rental);
+    Task<Rental?> GetByIdAsync(Guid id);
+    Task<bool> ExistsActiveRentalByMotoIdAsync(Guid motoId);
+    Task SaveAsync();
 }

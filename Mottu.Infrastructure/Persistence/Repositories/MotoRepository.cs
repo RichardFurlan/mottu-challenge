@@ -23,9 +23,12 @@ public class MotoRepository :  IMotoRepository
     {
         var query = _context.Motos
             .AsNoTracking();
-            
+
         if (!string.IsNullOrEmpty(placa))
-            query = query.Where(m => m.Placa == placa);
+        {
+            var pattern = $"%{placa.Trim()}%";
+            query = query.Where(m => EF.Functions.ILike(m.Placa, pattern));
+        }
                 
         
         return await query.ToListAsync();
