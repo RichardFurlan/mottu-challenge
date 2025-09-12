@@ -6,7 +6,7 @@ public class Moto : EntityBase
     {
         Ano = ano;
         Modelo = modelo;
-        Placa = placa;
+        Placa = NormalizePlaca(placa);
     }
     public int Ano { get; private set; }
     public string Modelo { get; private set; }
@@ -14,9 +14,17 @@ public class Moto : EntityBase
     
     public void UpdatePlaca(string placa)
     {
-        Placa = placa;
-        UpdatedAt = DateTime.Now;
+        Placa = NormalizePlaca(placa);
+        UpdatedAt = DateTime.UtcNow;
     }
     
 
+    private static string NormalizePlaca(string placa)
+    {
+        if (string.IsNullOrWhiteSpace(placa))
+            throw new ArgumentException("Placa inválida", nameof(placa));
+
+        
+        return placa.Trim().ToUpperInvariant();
+    }
 }

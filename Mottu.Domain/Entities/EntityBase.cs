@@ -11,12 +11,12 @@ public abstract class EntityBase
     public void Delete()
     {
         IsDeleted = true;
-        UpdatedAt = DateTime.Now;
+        UpdatedAt = DateTime.UtcNow;
     }
     
     public void Inativar()
     {
-        IsDeleted = true;
-        UpdatedAt = DateTime.Now;
+        IsActive = false;
+        UpdatedAt = DateTime.UtcNow;
     }
 }
