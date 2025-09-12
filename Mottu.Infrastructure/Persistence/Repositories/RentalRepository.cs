@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Mottu.Domain.Entities;
 using Mottu.Domain.Repositories;
 using Mottu.Infrastructure.Data;
 
@@ -13,8 +14,24 @@ public class RentalRepository :  IRentalRepository
         _context = context;
     }
 
-    public async Task<bool> ExitsByMotoIdAsync(Guid motoId)
+    public async Task AddAsync(Rental rental)
     {
-        return await _context.Rentals.AnyAsync(r => r.MotoId == motoId);
+        await _context.Rentals.AddAsync(rental);
+        await SaveAsync();
+    }
+
+    public async Task<Rental?> GetByIdAsync(Guid id)
+    {
+        return await _context.Rentals.SingleOrDefaultAsync(x => x.Id == id);
+    }
+
+    public async Task<bool> ExistsActiveRentalByMotoIdAsync(Guid motoId)
+    {
+        return await _context.Rentals.AnyAsync(r => r.MotoId == motoId && r.ActualReturnDate == null);
+    }
+
+    public async Task SaveAsync()
+    {
+        await _context.SaveChangesAsync();
     }
 }

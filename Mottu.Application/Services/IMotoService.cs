@@ -5,10 +5,10 @@ namespace Mottu.Application.Services;
 
 public interface IMotoService
 {
-    Task<ResultViewModel<Guid>> CriarMotoAsync(CreateMotoDto dto);
-    Task<ResultViewModel<List<MotoDto>>> ListarMotoAsync(string? placa);
-    Task<ResultViewModel<MotoDto>> BuscarMotoAsync(Guid id);
-    Task<ResultViewModel<string>> AtualizarPlacaAsync(Guid id, UpdatePlacaDto dto);
-    Task<ResultViewModel> DeletarMotoAsync(Guid id);
-    Task<ResultViewModel> InativarMotoAsync(Guid id);
+    Task<ResultViewModel<Guid>> CreateAsync(CreateMotoDto dto);
+    Task<ResultViewModel<List<MotoDto>>> ListAsync(string? placa);
+    Task<ResultViewModel<MotoDto>> GetByIdAsync(Guid id);
+    Task<ResultViewModel<string>> UpdatePlacaAsync(Guid id, UpdatePlacaDto dto);
+    Task<ResultViewModel> DeleteAsync(Guid id);
+    Task<ResultViewModel> InactivateAsync(Guid id);
 }

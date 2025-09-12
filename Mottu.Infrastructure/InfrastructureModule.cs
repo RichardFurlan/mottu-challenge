@@ -3,11 +3,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Mottu.Application.Contracts.Messaging;
+using Mottu.Application.Contracts.Storage;
 using Mottu.Domain.Repositories;
 using Mottu.Infrastructure.Data;
 using Mottu.Infrastructure.Persistence.Repositories;
 using Mottu.Infrastructure.Services.MessageBus.Consumer;
 using Mottu.Infrastructure.Services.MessageBus.Publisher;
+using Mottu.Infrastructure.Services.Storage;
 
 namespace Mottu.Infrastructure;
 
@@ -16,20 +18,18 @@ public static class InfrastructureModule
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services
+            .AddData(configuration)
             .AddRepository()
             .AddRabbitMq(configuration)
-            .AddData(configuration);
-
+            .AddMinIo(configuration);
         
         return services;
     }
     
     private static IServiceCollection AddData(this IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-
-        services.AddDbContext<AppDbContext>(o => o.UseNpgsql(connectionString));
-
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseNpgsql(configuration.GetConnectionString("MottuDb")));
         return services;
     }
     
@@ -37,7 +37,8 @@ public static class InfrastructureModule
     {
         services.AddScoped<IMotoRepository, MotoRepository>();
         services.AddScoped<IRentalRepository, RentalRepository>();        
-        
+        services.AddScoped<IEntregadorRepository, EntregadorRepository>();
+        services.AddSingleton<IStorageService, MinioStorageService>();
         return services;
     }
     
@@ -71,7 +72,12 @@ public static class InfrastructureModule
         return services;
     }
 
-    
+    private static IServiceCollection AddMinIo(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<MinioOptions>(configuration.GetSection("Minio"));
+        return services;
+    }
+
     #region Options
     public class RabbitMQOptions
     {

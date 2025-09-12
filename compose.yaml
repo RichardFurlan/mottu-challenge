@@ -16,7 +16,7 @@
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mottu
+      POSTGRES_DB: mottudb
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:

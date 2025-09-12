@@ -17,9 +17,12 @@ public class MotosController : ControllerBase
     
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> List([FromQuery] string? placa)
     {
-        var result = await _motoService.ListarMotoAsync(placa);
+        var result = await _motoService.ListAsync(placa);
+        if (!result.IsSuccess)
+            return BadRequest(result);
         return Ok(result);
     }
     
@@ -28,7 +31,7 @@ public class MotosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var result = await _motoService.BuscarMotoAsync(id);
+        var result = await _motoService.GetByIdAsync(id);
         if (!result.IsSuccess) return NotFound(result);
         return Ok(result);
     }
@@ -39,7 +42,7 @@ public class MotosController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CreateMotoDto dto)
     {
 
-        var result = await _motoService.CriarMotoAsync(dto);
+        var result = await _motoService.CreateAsync(dto);
 
         if (!result.IsSuccess)
             return BadRequest(result);
@@ -53,7 +56,7 @@ public class MotosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UpdatePlaca(Guid id, [FromBody] UpdatePlacaDto dto)
     {
-        var result = await _motoService.AtualizarPlacaAsync(id, dto);
+        var result = await _motoService.UpdatePlacaAsync(id, dto);
         if (!result.IsSuccess)
             return BadRequest(result);
         return Ok(result);
@@ -62,16 +65,16 @@ public class MotosController : ControllerBase
     [HttpPut("{id:guid}/inativar")]
     public async Task<IActionResult> Inativar(Guid id)
     {
-        var result = await _motoService.InativarMotoAsync(id);
-        if (!result.IsSuccess) return BadRequest(result.Message);
-        return NoContent();
+        var result = await _motoService.InactivateAsync(id);
+        if (!result.IsSuccess) return BadRequest(result);
+        return Ok(result);
     }
     
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await _motoService.DeletarMotoAsync(id);
-        if (!result.IsSuccess) return BadRequest(result.Message);
-        return NoContent();
+        var result = await _motoService.DeleteAsync(id);
+        if (!result.IsSuccess) return BadRequest(result);
+        return Ok(result);
     }
 }
